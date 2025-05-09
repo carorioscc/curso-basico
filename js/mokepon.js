@@ -1,4 +1,4 @@
-let ataqueJugador
+let ataqueJugador, ataqueEnemigo
 function iniciarJuego(){
     //no poner guuion medio a variables
 	let botonMascotaJugador = document.getElementById('btn-mascota')
@@ -16,14 +16,58 @@ function iniciarJuego(){
 function ataqueFuego(){
     ataqueJugador = 'FUEGO'
     alert(ataqueJugador)
+    ataqueAleatorioEnemigo();
 }
 function ataqueAgua(){
     ataqueJugador = 'AGUA'
     alert(ataqueJugador)
+    taqueAleatorioEnemigo();
 }
 function ataqueTierra(){
     ataqueJugador = 'TIERRA'
     alert(ataqueJugador)
+    taqueAleatorioEnemigo();
+}
+function ataqueAleatorioEnemigo(){
+    let ataqueAleatorio = aleatorio(1,3)
+
+    switch(ataqueAleatorio){
+        case 1 :
+            ataqueEnemigo = 'FUEGO'
+            break;
+        case 2 :
+            ataqueEnemigo = 'AGUA'
+            break;
+        case 3 :
+            ataqueEnemigo = 'TIERRA'
+            break;
+    }
+    combate()
+}
+
+function combate(){
+    //combate
+    if(ataqueEnemigo==ataqueJugador){
+        alert("Empate")
+    }else if(ataqueJugador=='FUEGO' && ataqueEnemigo=='TIERRA'){
+        alert("Ganaste")
+        
+    }else if(ataqueJugador=='AGUA' && ataqueEnemigo=='FUEGO'){
+        alert("Ganaste")
+    }else if(ataqueJugador == 'TIERRA' && ataqueEnemigo == 'AGUA'){
+        alert("Ganaste") 
+    }else{
+        alert("Perdiste")
+        p
+    }
+    crearMensaje()
+}
+
+function crearMensaje(){
+    let sectionMensaje = document.getElementById("mensajes")
+    let parrafo = document.createElement('p')
+    parrafo.innerHTML = "Tu mascota ataco con "+ataqueJugador+" la mascota del enemigo ataco con "+ataqueEnemigo
+    sectionMensaje.appendChild(parrafo)
 }
 function seleccionarMascotaJugador(){
     let inputBlacky=document.getElementById('blacky'),
@@ -40,9 +84,9 @@ function seleccionarMascotaJugador(){
     }else{
         alert("Selecciona una mascota")
     }
-    seleccionarMascotaREnemigo()
+    seleccionarMascotaEnemigo()
 }
-function seleccionarMascotaREnemigo(){
+function seleccionarMascotaEnemigo(){
     let ataqueAleatorio = aleatorio(1,3)
     let spanMacotaEnemigo = document.getElementById('mascota-enemigo')
     let mascota=''
@@ -59,6 +103,7 @@ function seleccionarMascotaREnemigo(){
     }
     spanMacotaEnemigo.innerHTML = mascota
 }
+
 
 function aleatorio(min, max){
     return Math.floor(Math.random()*(max-min+1)+min)
