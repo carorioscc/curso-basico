@@ -1,4 +1,4 @@
-let ataqueJugador, ataqueEnemigo
+let ataqueJugador, ataqueEnemigo, vidasJugador, vidasEnemigo
 function iniciarJuego(){
     //no poner guuion medio a variables
 	let botonMascotaJugador = document.getElementById('btn-mascota')
@@ -46,27 +46,30 @@ function ataqueAleatorioEnemigo(){
 }
 
 function combate(){
-    //combate
+
+    let spanVidasJugador= document.getElementById('vidas-jugador')
+    let spanvidasEnemigo = document.getElementById('vidas-enemigo')
     if(ataqueEnemigo==ataqueJugador){
-        alert("Empate")
+        crearMensaje("Empate")
+        vidasEnemigo--
     }else if(ataqueJugador=='FUEGO' && ataqueEnemigo=='TIERRA'){
-        alert("Ganaste")
-        
+        crearMensaje("Ganaste")
     }else if(ataqueJugador=='AGUA' && ataqueEnemigo=='FUEGO'){
-        alert("Ganaste")
+        crearMensaje("Ganaste")
     }else if(ataqueJugador == 'TIERRA' && ataqueEnemigo == 'AGUA'){
-        alert("Ganaste") 
+        crearMensaje("Ganaste") 
     }else{
-        alert("Perdiste")
-        p
+        crearMensaje("Perdiste")
+        vidasJugador --
+        spanVidasJugador.innerHTML = vidasJugador
+        spanVidasJugador.innerHTML = vidasJugador
     }
-    crearMensaje()
 }
 
-function crearMensaje(){
+function crearMensaje(resultado){
     let sectionMensaje = document.getElementById("mensajes")
     let parrafo = document.createElement('p')
-    parrafo.innerHTML = "Tu mascota ataco con "+ataqueJugador+" la mascota del enemigo ataco con "+ataqueEnemigo
+    parrafo.innerHTML = "Tu mascota ataco con "+ataqueJugador+" la mascota del enemigo ataco con "+ataqueEnemigo+" "+resultado
     sectionMensaje.appendChild(parrafo)
 }
 function seleccionarMascotaJugador(){
