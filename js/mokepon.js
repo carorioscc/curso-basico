@@ -1,4 +1,4 @@
-let ataqueJugador, ataqueEnemigo, vidasJugador, vidasEnemigo
+let ataqueJugador, ataqueEnemigo, vidasJugador=3, vidasEnemigo=3
 function iniciarJuego(){
     //no poner guuion medio a variables
 	let botonMascotaJugador = document.getElementById('btn-mascota')
@@ -54,15 +54,26 @@ function combate(){
         vidasEnemigo--
     }else if(ataqueJugador=='FUEGO' && ataqueEnemigo=='TIERRA'){
         crearMensaje("Ganaste")
+        vidasEnemigo--
     }else if(ataqueJugador=='AGUA' && ataqueEnemigo=='FUEGO'){
         crearMensaje("Ganaste")
+        vidasEnemigo--
     }else if(ataqueJugador == 'TIERRA' && ataqueEnemigo == 'AGUA'){
         crearMensaje("Ganaste") 
+        vidasEnemigo--
     }else{
         crearMensaje("Perdiste")
         vidasJugador --
         spanVidasJugador.innerHTML = vidasJugador
-        spanVidasJugador.innerHTML = vidasJugador
+    }
+    //se revia las vidas
+    revisarVidas()
+}
+function revisarVidas(){
+    if(vidasEnemigo==0){
+        crearMensajeFinal("FELICIDADES, GANASTE :)")
+    }else if(vidasJugador == 0){
+        crearMensajeFinal(" PERDISTE ")
     }
 }
 
@@ -71,6 +82,12 @@ function crearMensaje(resultado){
     let parrafo = document.createElement('p')
     parrafo.innerHTML = "Tu mascota ataco con "+ataqueJugador+" la mascota del enemigo ataco con "+ataqueEnemigo+" "+resultado
     sectionMensaje.appendChild(parrafo)
+}
+function crearMensajeFinal(){
+    let sectionMensajes = document.getElementById('mensajes')
+    let parrafo = document.createElement('p')
+    parrafo.innerHTML = resultadoFinal
+    sectionMensajes.appendChild(parrafo)
 }
 function seleccionarMascotaJugador(){
     let inputBlacky=document.getElementById('blacky'),
