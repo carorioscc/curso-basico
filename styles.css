@@ -1,0 +1,35 @@
+
+/* SELECTOR DE TIPO
+h1{
+    color: lightcoral;
+}
+*/
+/*CLASE
+.titulo {
+    color: lightcoral;
+}
+    */
+/*ID*/
+/*
+#titulo{
+    color :azure;
+}
+    */
+
+.titulo {
+    color: hotpink;
+    width: 310px;
+    height:  50px;
+    background-color: teal;
+}
+
+
+/*flexbox solo de una dimension o que trabajen juntas las propiedades, elemntos hijos o padres
+etiquetas padres que tengan elementos por dentro
+*/
+#seleccion-mascota{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
