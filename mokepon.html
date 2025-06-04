@@ -10,16 +10,28 @@
         
         <section id="seleccion-mascota">
             <h1 class="titulo">MOKEPON</h1>
-            <h2>Elige tu mascota:</h2>
-            <!--el for del label vincula con el id del input-->
-            <label for="blacky">Blacky</label>
-            <input type="radio" name="mascota" id="blacky"/>
+            <h2 class="subtitulo">Elige tu mascota:</h2>
+            <div class="tarjetas">
+                <!--el for del label vincula con el id del input-->
+                <label class="tarjeta-de-mokepon" for="blacky">
+                    <p>Blacky</p>
+                    <img />
+                </label>
+                <input type="radio" name="mascota" id="blacky"/>
 
-            <label for="coco">Coco</label>
-            <input type="radio" name="mascota" id="coco"/>
+                <label class="tarjeta-de-mokepon" for="coco">
+                    <p>Coco</p>
+                    <img/>
+                </label>
+                <input type="radio" name="mascota" id="coco"/>
 
-            <label for="charly">Charly</label>
-            <input type="radio" name="mascota" id="charly"/>
+                <label class="tarjeta-de-mokepon" for="charly">
+                    <p>Charly</p>
+                    <img/>
+                </label>
+                <input type="radio" name="mascota" id="charly"/>
+            </div>
+            
 
             <button id="btn-mascota">Seleccionar</button>
         </section>

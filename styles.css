@@ -1,4 +1,9 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+body{
+    font-family: "Fredoka", sans-serif;
+    background-color: #041562;
+}
+/*Por lo genral se trabaja en multiplos de 4*/
 /* SELECTOR DE TIPO
 h1{
     color: lightcoral;
@@ -16,12 +21,7 @@ h1{
 }
     */
 
-.titulo {
-    color: hotpink;
-    width: 310px;
-    height:  50px;
-    background-color: teal;
-}
+
 
 
 /*flexbox solo de una dimension o que trabajen juntas las propiedades, elemntos hijos o padres
@@ -32,4 +32,49 @@ etiquetas padres que tengan elementos por dentro
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.tarjeta{
+    display: flex;
+    /* gap espaciado*/
+    gap :10px;
+}
+.titulo {
+    color: white;
+    font-size: 32px;
+    
+}
+.subtitulo {
+    color: white;
+    font-size: 20px;
+}
+/*Padding espaciado interno, margin espaciado externo*/
+
+.tarjeta-de-mokepon {
+
+    
+    width: 180px;
+    height: 100px;
+    background: aquamarine;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 10px;
+    /*
+    border: 1px  hotpink;
+    */
+    border-radius: 20px;
+    color: white;
+    display: flex;/*Para que se ubique al lado los elementos*/
+    align-items: center;
+
+}
+/* clase y selector de tipo*/
+.tarjeta-de-mokepon img{
+    width: 80px;
+
+}
+/*selector de tipo*/
+input {
+    display: none;
+
 }
