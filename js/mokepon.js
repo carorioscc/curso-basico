@@ -120,7 +120,7 @@ function seleccionarMascotaJugador(){
 
     let sectionSeleccionarAtaque = document.getElementById('seleccion-ataque')
     //style guarda los estilos 
-    sectionSeleccionarAtaque.style.display='block'
+    sectionSeleccionarAtaque.style.display='flex'
 
     let inputBlacky=document.getElementById('blacky'),
      inputCoco=document.getElementById('coco'),

@@ -34,7 +34,7 @@ etiquetas padres que tengan elementos por dentro
     align-items: center;
 }
 
-.tarjeta{
+.tarjetas{
     display: flex;
     /* gap espaciado*/
     gap :10px;
@@ -51,11 +51,9 @@ etiquetas padres que tengan elementos por dentro
 /*Padding espaciado interno, margin espaciado externo*/
 
 .tarjeta-de-mokepon {
-
-    
     width: 180px;
     height: 100px;
-    background: aquamarine;
+    background:  #11468F;
     padding: 10px;
     box-sizing: border-box;
     margin: 10px;
@@ -73,8 +71,36 @@ etiquetas padres que tengan elementos por dentro
     width: 80px;
 
 }
+/*De acuerdo a las manecillas de reloj*/
+#btn-mascota {
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    margin-top: 30px;
+}
 /*selector de tipo*/
 input {
     display: none;
 
+}
+/*primero con el div mas grande */
+
+#seleccion-ataque {
+    /*display: flex;esto esta en el js*/ 
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-de-ataque{
+    background-color: #11468F;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 20px;
+    border: transparent;
+    width: 100px;
+    color: white;
+    font-family:sans-serif;
 }
