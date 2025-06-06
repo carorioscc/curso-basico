@@ -89,16 +89,34 @@ function revisarVidas(){
 }
 
 function crearMensaje(resultado){
-    let sectionMensaje = document.getElementById("mensajes")
-    let parrafo = document.createElement('p')
+    let sectionMensaje = document.getElementById("resultado")
+    let ataqueDelJugador = document.getElementById("ataque-del-jugador")
+    let ataqueDelEnemigo = document.getElementById("ataque-del-enemigo")
+
+    let notificacion = document.getElementById('p')
+    let nuevoAtaqueJugador = document.getElementById('p')
+    let nuevoAtaqueEnemigo = document.getElementById('p')
+
+    sectionMensaje.innerHTML=resultado
+    nuevoAtaqueJugador.innerHTML=ataqueDelJugador
+    nuevoAtaqueEnemigo.innerHTML=ataqueEnemigo
+
+    /*let parrafo = document.createElement('p')
     parrafo.innerHTML = "Tu mascota ataco con "+ataqueJugador+" la mascota del enemigo ataco con "+ataqueEnemigo+" "+resultado
-    sectionMensaje.appendChild(parrafo)
+    sectionMensaje.appendChild(parrafo)*/
+    ataqueDelJugador.appendChild(nuevoAtaqueJugador)
+    ataqueDelEnemigo.appendChild(nuevoAtaqueEnemigo)
 }
 function crearMensajeFinal(){
-    let sectionMensajes = document.getElementById('mensajes')
+    let sectionMensajes = document.getElementById('resultado')
+
+    sectionMensajes.innerHTML=resultadoFinal
+
+    /*
     let parrafo = document.createElement('p')
     parrafo.innerHTML = resultadoFinal
     sectionMensajes.appendChild(parrafo)
+    */
 
     let btnFuego = document.getElementById('btn-fuego'),
     btnAgua = document.getElementById('btn-agua'),

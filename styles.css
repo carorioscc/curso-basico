@@ -22,8 +22,6 @@ h1{
     */
 
 
-
-
 /*flexbox solo de una dimension o que trabajen juntas las propiedades, elemntos hijos o padres
 etiquetas padres que tengan elementos por dentro
 */
@@ -34,7 +32,7 @@ etiquetas padres que tengan elementos por dentro
     align-items: center;
 }
 
-.tarjetas{
+.tarjetas, .tarjetas-ataque{
     display: flex;
     /* gap espaciado*/
     gap :10px;
@@ -82,12 +80,15 @@ etiquetas padres que tengan elementos por dentro
     margin-top: 30px;
 }
 /*selector de tipo*/
+
 input {
     display: none;
-
 }
 /*primero con el div mas grande */
+input:checked + label{
+    background: #F5D8F4;
 
+}
 #seleccion-ataque {
     /*display: flex;esto esta en el js*/ 
     flex-direction: column;
@@ -104,3 +105,57 @@ input {
     color: white;
     font-family:sans-serif;
 }
+
+#mensajes {
+    width: 250px;
+    background: #EEEE;
+    padding:20px;
+    margin-top: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family:sans-serif;
+}
+
+#btn-reiniciar{
+    border: none;
+    color: #11468F;
+    font-family: sans-serif;
+
+}
+/*Con flex van en una sola direccion row o column*/
+/*grid cuadricula */
+
+.ataques {
+    display: grid;
+    grid-template-columns: 100px 100px;
+    color: white;
+}
+
+#vidas-jugador, #vidas-enemigo{
+    font-size: 30px;
+    margin-bottom: 0;
+}
+.ataques-jugador, .ataques-enemigo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*hasta ese tamaño de pantalla va a suceder esto ejemplo desde 0 px hasta 360 px*/
+@media (max-width:360px){
+    .tarjetas, .tarjetas-ataque{
+        flex-direction: column;
+    }
+    
+}
+
+/*pseudoclases : acciones de usuario
+:hover pasar mouse
+:active click directamente en el btn
+:checked di nuestro input esta clickeado
++ seleccionar un hermano*/
+
+/*
+box-sizing: border-box: propiedad y valor de CSS podemos añadirle a nuestro <p> para que el padding NO modifique el tamaño de NUESTRO elemento*/

@@ -13,23 +13,24 @@
             <h2 class="subtitulo">Elige tu mascota:</h2>
             <div class="tarjetas">
                 <!--el for del label vincula con el id del input-->
+                <input type="radio" name="mascota" id="blacky"/>
                 <label class="tarjeta-de-mokepon" for="blacky">
                     <p>Blacky</p>
                     <img />
                 </label>
-                <input type="radio" name="mascota" id="blacky"/>
-
+                
+                <input type="radio" name="mascota" id="coco"/>
                 <label class="tarjeta-de-mokepon" for="coco">
                     <p>Coco</p>
                     <img/>
                 </label>
-                <input type="radio" name="mascota" id="coco"/>
-
+                
+                <input type="radio" name="mascota" id="charly"/>
                 <label class="tarjeta-de-mokepon" for="charly">
                     <p>Charly</p>
                     <img/>
                 </label>
-                <input type="radio" name="mascota" id="charly"/>
+                
             </div>
             <button id="btn-mascota">Seleccionar</button>
         </section>
@@ -39,25 +40,32 @@
 
             <h2 class="subtitulo">Elige tu ataque</h2>
 
-            <div>
+            <div class="tarjetas-ataques">
                 <button id="btn-fuego" class="btn-de-ataque">Fuego</button>
                 <button id="btn-agua" class="btn-de-ataque">Agua</button>
                 <button id="btn-tierra" class="btn-de-ataque">Tierra</button>
             </div>
-
-            <div>
-                <section id="mensajes">
-
-                </section>
+            
+            <div id="mensajes">
+                <p id="resultado">Mucha Suerte</p>
                 <section id="reiniciar">
                     <button id="btn-reiniciar">Reiniciar</button>
                 </section>
-
             </div>
-            <div>
-                <p>Tu mascota <span id="mascota-jugador"></span>tiene <span id="vidas-jugador"></span> Vidas</p>
-                <p>Tu mascota <span id="mascota-enemigo"></span>tiene <span id="vidas-enemigo"></span> Vidas</p>
-            
+
+            <div class="ataques">
+                <div class="ataques-jugador">
+                    <p id="vidas-jugador"></p> 
+                    <p id="mascota-jugador"></p>
+                    <div id="ataque-del-jugador"></div>
+                    <!--<p>Tu mascota tiene Vidas</p>-->
+                </div>
+                <div class="ataques-enemigo">
+                    <p id="vidas-enemigo"></p>
+                    <p id="mascota-enemigo"></p>
+                    <div id="ataque-del-enemigo"></div>
+                   
+                </div>
             </div>
             
         </section>
