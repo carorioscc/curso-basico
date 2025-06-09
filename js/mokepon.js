@@ -1,28 +1,117 @@
-let ataqueJugador, ataqueEnemigo, vidasJugador=3, vidasEnemigo=3
+//variable let-puede variar, const ya no cambia ya que se cra el valor que tiene no cambia
+const sectionSeleccionarAtaque = document.getElementById('seleccion-ataque')
+const sectionReiniciar= document.getElementById('reiniciar')
+const botonMascotaJugador = document.getElementById('btn-mascota')
+const btnReiniciar = document.getElementById('btn-reiniciar')
+const btnFuego = document.getElementById('btn-fuego')
+const btnAgua = document.getElementById('btn-agua')
+const btnTierra = document.getElementById('btn-tierra')
+const sectionSeleccionarMascota = document.getElementById('seleccion-mascota')
+
+const inputBlacky=document.getElementById('blacky')
+const inputCoco=document.getElementById('coco')
+const inputCharly=document.getElementById('charly')
+
+const spanMascotaJugador= document.getElementById('mascota-jugador')
+const spanMacotaEnemigo = document.getElementById('mascota-enemigo')
+
+const spanVidasJugador= document.getElementById('vidas-jugador')
+const spanVidasEnemigo = document.getElementById('vidas-enemigo')
+
+const sectionMensaje = document.getElementById("resultado")
+const ataqueDelJugador = document.getElementById("ataques-jugador")
+const ataqueDelEnemigo = document.getElementById("ataques-enemigo")
+
+let mokepones = []
+
+let ataqueJugador
+let ataqueEnemigo 
+let vidasJugador=3 
+let vidasEnemigo=3
+
+class Mokepon{
+    //constructo
+    constructor(nombre, foto, vida){
+        //a esto mismo
+        this.nombre=nombre
+        this.foto=foto
+        this.vida=vida
+        this.ataques=[]
+    }
+}
+//ejemplo de ob jetos instancia
+let blacky = new Mokepon('Blacky', './assets/mokepons_mokepon_hipodoge_attack.png', 5)
+let coco = new Mokepon('Coco', './assets/mokepons_mokepon_capipepo_attack.png', 2)
+let charly = new Mokepon('Charly', './assets/mokepons_mokepon_ratigueya_attack.png', 7)
+
+blacky.ataques.push(
+    
+)
+//ejemplo de objetos iterables.
+
+
 function iniciarJuego(){
 
-    let sectionSeleccionarMascota = document.getElementById('seleccion-ataque')
     //style guarda los estilos 
-    sectionSeleccionarMascota.style.display='none'
-
-    let sectionReiniciar= document.getElementById('reiniciar')
+    //sectionSeleccionarMascota.style.display='none'
+    sectionSeleccionarAtaque.style.display='none'
+ 
     //style guarda los estilos 
     sectionReiniciar.style.display='none'
     
     
     //no poner guuion medio a variables
-	let botonMascotaJugador = document.getElementById('btn-mascota')
+	
 	botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador);
 
-    let btnFuego = document.getElementById('btn-fuego'), 
-     btnAgua = document.getElementById('btn-agua'),
-     btnTierra = document.getElementById('btn-tierra'),
-     btnReiniciar = document.getElementById('btn-reiniciar')
+    
+     
      btnFuego.addEventListener('click', ataqueFuego)
      btnAgua.addEventListener('click', ataqueAgua)
      btnTierra.addEventListener('click', ataqueTierra)
      btnReiniciar.addEventListener('click', reiniciarJuego)
 
+}
+
+function seleccionarMascotaJugador(){
+    
+    //style guarda los estilos 
+    sectionSeleccionarMascota.style.display='none'
+
+    
+    //style guarda los estilos 
+    sectionSeleccionarAtaque.style.display='flex'
+
+    
+     
+	if(inputBlacky.checked){
+        spanMascotaJugador.innerHTML='Blacky ';
+    }else if(inputCoco.checked){
+        spanMascotaJugador.innerHTML='Coco ';
+    }else if(inputCharly.checked){
+        spanMascotaJugador.innerHTML='Charly Brown ';
+    }else{
+        alert("Selecciona una mascota")
+    }
+    seleccionarMascotaEnemigo()
+}
+
+function seleccionarMascotaEnemigo(){
+    let ataqueAleatorio = aleatorio(1,3)
+    
+    let mascota=''
+    switch(ataqueAleatorio){
+        case 1 :
+            mascota = 'Blacky'
+            break;
+        case 2 :
+            mascota = 'Coco'
+            break;
+        case 3 :
+            mascota = 'Charly'
+            break;
+    }
+    spanMacotaEnemigo.innerHTML = mascota
 }
 
 function ataqueFuego(){
@@ -55,9 +144,8 @@ function ataqueAleatorioEnemigo(){
 }
 
 function combate(){
+    console.log(vidasJugador)
 
-    let spanVidasJugador= document.getElementById('vidas-jugador')
-    let spanVidasEnemigo = document.getElementById('vidas-enemigo')
     if(ataqueEnemigo==ataqueJugador){
         crearMensaje("Empate")
     }else if(ataqueJugador=='FUEGO' && ataqueEnemigo=='TIERRA'){
@@ -89,17 +177,17 @@ function revisarVidas(){
 }
 
 function crearMensaje(resultado){
-    let sectionMensaje = document.getElementById("resultado")
-    let ataqueDelJugador = document.getElementById("ataque-del-jugador")
-    let ataqueDelEnemigo = document.getElementById("ataque-del-enemigo")
+    console.log(resultado)
+    console.log(ataqueJugador)
 
-    let notificacion = document.getElementById('p')
+
+    //let notificacion = document.getElementById('p')
     let nuevoAtaqueJugador = document.getElementById('p')
     let nuevoAtaqueEnemigo = document.getElementById('p')
 
     sectionMensaje.innerHTML=resultado
-    nuevoAtaqueJugador.innerHTML=ataqueDelJugador
-    nuevoAtaqueEnemigo.innerHTML=ataqueEnemigo
+    nuevoAtaqueJugador.innerHTML = ataqueJugador
+    nuevoAtaqueEnemigo.innerHTML = ataqueEnemigo
 
     /*let parrafo = document.createElement('p')
     parrafo.innerHTML = "Tu mascota ataco con "+ataqueJugador+" la mascota del enemigo ataco con "+ataqueEnemigo+" "+resultado
@@ -108,7 +196,7 @@ function crearMensaje(resultado){
     ataqueDelEnemigo.appendChild(nuevoAtaqueEnemigo)
 }
 function crearMensajeFinal(){
-    let sectionMensajes = document.getElementById('resultado')
+    
 
     sectionMensajes.innerHTML=resultadoFinal
 
@@ -118,61 +206,19 @@ function crearMensajeFinal(){
     sectionMensajes.appendChild(parrafo)
     */
 
-    let btnFuego = document.getElementById('btn-fuego'),
-    btnAgua = document.getElementById('btn-agua'),
-    btnTierra = document.getElementById('btn-tierra')
+
 
     btnFuego.disabled = true
     btnAgua.disabled = true
     btnTierra.disabled = true
 
-    let sectionReiniciar= document.getElementById('reiniciar')
+
     //style guarda los estilos 
     sectionReiniciar.style.display='block'
 
 }
-function seleccionarMascotaJugador(){
-    let sectionSeleccionarMascota = document.getElementById('seleccion-mascota')
-    //style guarda los estilos 
-    sectionSeleccionarMascota.style.display='none'
 
-    let sectionSeleccionarAtaque = document.getElementById('seleccion-ataque')
-    //style guarda los estilos 
-    sectionSeleccionarAtaque.style.display='flex'
 
-    let inputBlacky=document.getElementById('blacky'),
-     inputCoco=document.getElementById('coco'),
-     inputCharly=document.getElementById('charly'),
-     spanMascotaJugador= document.getElementById('mascota-jugador')
-     
-	if(inputBlacky.checked){
-        spanMascotaJugador.innerHTML='Blacky ';
-    }else if(inputCoco.checked){
-        spanMascotaJugador.innerHTML='Coco ';
-    }else if(inputCharly.checked){
-        spanMascotaJugador.innerHTML='Charly Brown ';
-    }else{
-        alert("Selecciona una mascota")
-    }
-    seleccionarMascotaEnemigo()
-}
-function seleccionarMascotaEnemigo(){
-    let ataqueAleatorio = aleatorio(1,3)
-    let spanMacotaEnemigo = document.getElementById('mascota-enemigo')
-    let mascota=''
-    switch(ataqueAleatorio){
-        case 1 :
-            mascota = 'Blacky'
-            break;
-        case 2 :
-            mascota = 'Coco'
-            break;
-        case 3 :
-            mascota = 'Charly'
-            break;
-    }
-    spanMacotaEnemigo.innerHTML = mascota
-}
 function reiniciarJuego(){
     location.reload();
 }
@@ -184,4 +230,8 @@ function aleatorio(min, max){
 //cuando carga todo el html
 window.addEventListener('load', iniciarJuego)
 
-
+/*
+clases y objetos no pueden exitir una sin la otra
+ejemplo clase:plano casa
+objeto : casas
+*/
