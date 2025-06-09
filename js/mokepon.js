@@ -43,11 +43,34 @@ class Mokepon{
 let blacky = new Mokepon('Blacky', './assets/mokepons_mokepon_hipodoge_attack.png', 5)
 let coco = new Mokepon('Coco', './assets/mokepons_mokepon_capipepo_attack.png', 2)
 let charly = new Mokepon('Charly', './assets/mokepons_mokepon_ratigueya_attack.png', 7)
-
-blacky.ataques.push(
-    
-)
 //ejemplo de objetos iterables.
+blacky.ataques.push(
+    {nombre:'AGUA', id: 'btn-agua'},
+    {nombre: 'AGUA', id: 'btn-agua'},
+    {nombre: 'FUEGO', id: 'btn-fuego'},
+    {nombre: 'FUEGO', id: 'btn-fuego'},
+    {nombre: 'TIERRA', id: 'btn-tierra'},
+
+)
+coco.ataques.push(
+    {nombre:'FUEGO', id: 'btn-fuego'},
+    {nombre: 'AGUA', id: 'btn-agua'},
+    {nombre: 'FUEGO', id: 'btn-fuego'},
+    {nombre: 'FUEGO', id: 'btn-fuego'},
+    {nombre: 'TIERRA', id: 'btn-tierra'},
+
+)
+charly.ataques.push(
+    {nombre:'AGUA', id: 'btn-agua'},
+    {nombre: 'AGUA', id: 'btn-agua'},
+    {nombre: 'FUEGO', id: 'btn-fuego'},
+    {nombre: 'TIERRA', id: 'btn-tierra'},
+    {nombre: 'TIERRA', id: 'btn-tierra'},
+
+)
+
+
+
 
 
 function iniciarJuego(){
