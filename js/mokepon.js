@@ -19,8 +19,8 @@ const spanVidasJugador= document.getElementById('vidas-jugador')
 const spanVidasEnemigo = document.getElementById('vidas-enemigo')
 
 const sectionMensaje = document.getElementById("resultado")
-const ataqueDelJugador = document.getElementById("ataques-jugador")
-const ataqueDelEnemigo = document.getElementById("ataques-enemigo")
+const ataqueDelJugador = document.getElementById("ataque-jugador")
+const ataqueDelEnemigo = document.getElementById("ataque-enemigo")
 
 let mokepones = []
 
@@ -108,7 +108,7 @@ function seleccionarMascotaEnemigo(){
             mascota = 'Coco'
             break;
         case 3 :
-            mascota = 'Charly'
+            mascota = 'Charly Brown'
             break;
     }
     spanMacotaEnemigo.innerHTML = mascota
@@ -182,8 +182,8 @@ function crearMensaje(resultado){
 
 
     //let notificacion = document.getElementById('p')
-    let nuevoAtaqueJugador = document.getElementById('p')
-    let nuevoAtaqueEnemigo = document.getElementById('p')
+    let nuevoAtaqueJugador = document.createElement('p')
+    let nuevoAtaqueEnemigo = document.createElement('p')
 
     sectionMensaje.innerHTML=resultado
     nuevoAtaqueJugador.innerHTML = ataqueJugador
@@ -195,19 +195,15 @@ function crearMensaje(resultado){
     ataqueDelJugador.appendChild(nuevoAtaqueJugador)
     ataqueDelEnemigo.appendChild(nuevoAtaqueEnemigo)
 }
-function crearMensajeFinal(){
+function crearMensajeFinal(resultadoFinal){
     
 
-    sectionMensajes.innerHTML=resultadoFinal
-
+    sectionMensaje.innerHTML=resultadoFinal
     /*
     let parrafo = document.createElement('p')
     parrafo.innerHTML = resultadoFinal
     sectionMensajes.appendChild(parrafo)
     */
-
-
-
     btnFuego.disabled = true
     btnAgua.disabled = true
     btnTierra.disabled = true
