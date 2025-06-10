@@ -21,6 +21,7 @@ const spanVidasEnemigo = document.getElementById('vidas-enemigo')
 const sectionMensaje = document.getElementById("resultado")
 const ataqueDelJugador = document.getElementById("ataque-jugador")
 const ataqueDelEnemigo = document.getElementById("ataque-enemigo")
+const contenedorTarjetas = document.getElementById("contenedorTarjetas")
 
 let mokepones = []
 
@@ -28,6 +29,7 @@ let ataqueJugador
 let ataqueEnemigo 
 let vidasJugador=3 
 let vidasEnemigo=3
+let opcionDeMokepon
 
 class Mokepon{
     //constructo
@@ -68,7 +70,7 @@ charly.ataques.push(
     {nombre: 'TIERRA', id: 'btn-tierra'},
 
 )
-
+mokepones.push(blacky, coco, charly)
 
 
 
@@ -78,21 +80,27 @@ function iniciarJuego(){
     //style guarda los estilos 
     //sectionSeleccionarMascota.style.display='none'
     sectionSeleccionarAtaque.style.display='none'
- 
+/**por cada elemento de :foreach */
+    mokepones.forEach((mokepon)=>{
+        console.log(mokepon.nombre)
+        //template literario comillas invertidos
+        opcionDeMokepon=`
+            <input type="radio" name="mascota" id=${mokepon.nombre}/>
+            <label class="tarjeta-de-mokepon" for=${mokepon.nombre}">
+                <p>${mokepon.nombre}</p>
+                <img src${mokepon.foto}" alt=${mokepon.nombre}>
+            </label>
+        `
+        contenedorTarjetas.innerHTML+=opcionDeMokepon
+    })
     //style guarda los estilos 
     sectionReiniciar.style.display='none'
-    
-    
     //no poner guuion medio a variables
-	
-	botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador);
-
-    
-     
-     btnFuego.addEventListener('click', ataqueFuego)
-     btnAgua.addEventListener('click', ataqueAgua)
-     btnTierra.addEventListener('click', ataqueTierra)
-     btnReiniciar.addEventListener('click', reiniciarJuego)
+	botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
+    btnFuego.addEventListener('click', ataqueFuego)
+    btnAgua.addEventListener('click', ataqueAgua)
+    btnTierra.addEventListener('click', ataqueTierra)
+    btnReiniciar.addEventListener('click', reiniciarJuego)
 
 }
 
