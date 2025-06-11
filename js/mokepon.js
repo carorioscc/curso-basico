@@ -8,10 +8,6 @@ const btnAgua = document.getElementById('btn-agua')
 const btnTierra = document.getElementById('btn-tierra')
 const sectionSeleccionarMascota = document.getElementById('seleccion-mascota')
 
-const inputBlacky=document.getElementById('blacky')
-const inputCoco=document.getElementById('coco')
-const inputCharly=document.getElementById('charly')
-
 const spanMascotaJugador= document.getElementById('mascota-jugador')
 const spanMacotaEnemigo = document.getElementById('mascota-enemigo')
 
@@ -30,6 +26,11 @@ let ataqueEnemigo
 let vidasJugador=3 
 let vidasEnemigo=3
 let opcionDeMokepon
+let mascotaJugador
+
+let inputBlacky
+let inputCoco
+let inputCharly
 
 class Mokepon{
     //constructo
@@ -73,8 +74,6 @@ charly.ataques.push(
 mokepones.push(blacky, coco, charly)
 
 
-
-
 function iniciarJuego(){
 
     //style guarda los estilos 
@@ -85,16 +84,21 @@ function iniciarJuego(){
         console.log(mokepon.nombre)
         //template literario comillas invertidos
         opcionDeMokepon=`
-            <input type="radio" name="mascota" id=${mokepon.nombre}/>
-            <label class="tarjeta-de-mokepon" for=${mokepon.nombre}">
+            <input type="radio" name="mascota" id=${mokepon.nombre} />
+            <label class="tarjeta-de-mokepon" for=${mokepon.nombre}>
                 <p>${mokepon.nombre}</p>
-                <img src${mokepon.foto}" alt=${mokepon.nombre}>
+                <img src=${mokepon.foto} alt=${mokepon.nombre}>
             </label>
         `
         contenedorTarjetas.innerHTML+=opcionDeMokepon
-    })
+        inputBlacky=document.getElementById('Blacky')
+        inputCoco=document.getElementById('Coco')
+        inputCharly=document.getElementById('Charly')
+    });
+
+
     //style guarda los estilos 
-    sectionReiniciar.style.display='none'
+    //sectionReiniciar.style.display='none'
     //no poner guuion medio a variables
 	botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
     btnFuego.addEventListener('click', ataqueFuego)
@@ -109,40 +113,37 @@ function seleccionarMascotaJugador(){
     //style guarda los estilos 
     sectionSeleccionarMascota.style.display='none'
 
-    
-    //style guarda los estilos 
     sectionSeleccionarAtaque.style.display='flex'
-
-    
-     
+   
 	if(inputBlacky.checked){
-        spanMascotaJugador.innerHTML='Blacky ';
+        spanMascotaJugador.innerHTML=inputBlacky.id
+        mascotaJugador = inputBlacky.id
     }else if(inputCoco.checked){
-        spanMascotaJugador.innerHTML='Coco ';
+        spanMascotaJugador.innerHTML=inputCoco.id
+        mascotaJugador = inputCoco.id
     }else if(inputCharly.checked){
-        spanMascotaJugador.innerHTML='Charly Brown ';
+        spanMascotaJugador.innerHTML=inputCharly.id
+        mascotaJugador = inputCharly.id
     }else{
         alert("Selecciona una mascota")
     }
+    extraerAtaques(mascotaJugador)
     seleccionarMascotaEnemigo()
 }
+function extraerAtaques(mascotaJugador){
+    let ataques 
+    for (let i = 0; i < mokepones.length; i++) {
+        if(mascotaJugador === mokepones[i].nombre){
+            ataques =mokepones[i].ataques
 
-function seleccionarMascotaEnemigo(){
-    let ataqueAleatorio = aleatorio(1,3)
-    
-    let mascota=''
-    switch(ataqueAleatorio){
-        case 1 :
-            mascota = 'Blacky'
-            break;
-        case 2 :
-            mascota = 'Coco'
-            break;
-        case 3 :
-            mascota = 'Charly Brown'
-            break;
+        }
     }
-    spanMacotaEnemigo.innerHTML = mascota
+    mostrarAtaques(ataques)
+}
+function seleccionarMascotaEnemigo(){
+    let ataqueAleatorio = aleatorio(0 ,mokepones.length-1)
+    
+    spanMacotaEnemigo.innerHTML=mokepones[ataqueAleatorio].nombre
 }
 
 function ataqueFuego(){
