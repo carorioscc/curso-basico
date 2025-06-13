@@ -22,19 +22,19 @@ const contenedorAtaques = document.getElementById("contenedorAtaques")
 
 let mokepones = []
 
-//let ataqueJugador
-let ataqueEnemigo 
+let ataqueJugador =[]
+let ataqueEnemigo = []
 let vidasJugador=3 
 let vidasEnemigo=3
 let opcionDeMokepon
 let mascotaJugador
 let ataquesMascota
+let ataquesMascotaEnemigo
 let inputBlacky
 let inputCoco
 let inputCharly
 
 let botones= []
-let ataqueJugador = []
 let btnFuego 
 let btnAgua 
 let btnTierra 
@@ -173,7 +173,6 @@ function secuenciaAtaque(){
                 ataqueJugador.push('FUEGO')
                 boton.style.background ='#112f58'
             }*/
-
             let valor = e.target.textContent
             switch(valor){
                 case 'FUEGO' :
@@ -189,42 +188,35 @@ function secuenciaAtaque(){
                     boton.style.background ='#112f58'
                     break;
             }
+            ataqueAleatorioEnemigo()
             console.log(ataqueJugador)
         })
     })
+    
 }
 function seleccionarMascotaEnemigo(){
     let ataqueAleatorio = aleatorio(0 ,mokepones.length-1)
     spanMacotaEnemigo.innerHTML=mokepones[ataqueAleatorio].nombre
+    ataquesMascotaEnemigo = mokepones[ataqueAleatorio].ataques
     secuenciaAtaque()
 }
-/*
-function ataqueFuego(){
-    ataqueJugador = 'FUEGO'
-    ataqueAleatorioEnemigo();
-}
-function ataqueAgua(){
-    ataqueJugador = 'AGUA'
-    ataqueAleatorioEnemigo();
-}
-function ataqueTierra(){
-    ataqueJugador = 'TIERRA'
-    ataqueAleatorioEnemigo();
-}*/
+
 function ataqueAleatorioEnemigo(){
-    let ataqueAleatorio = aleatorio(1,3)
+    let ataqueAleatorio = aleatorio(0,ataquesMascotaEnemigo.length-1)
 
     switch(ataqueAleatorio){
-        case 1 :
-            ataqueEnemigo = 'FUEGO'
+        case 0 : case 1:
+            ataqueEnemigo.push('FUEGO')
+            
+            break;
+        case 3 : case 4 :
+            ataqueEnemigo.push('AGUA')
             break;
         case 2 :
-            ataqueEnemigo = 'AGUA'
-            break;
-        case 3 :
-            ataqueEnemigo = 'TIERRA'
+            ataqueEnemigo.push('TIERRA')
             break;
     }
+    console.log(ataqueEnemigo)
     combate()
 }
 
