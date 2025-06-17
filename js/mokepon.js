@@ -24,6 +24,9 @@ let mokepones = []
 
 let ataqueJugador =[]
 let ataqueEnemigo = []
+
+let victoriaJugador = 0
+let victoriasEnemigo = 0
 let vidasJugador=3 
 let vidasEnemigo=3
 let opcionDeMokepon
@@ -35,6 +38,8 @@ let inputCoco
 let inputCharly
 
 let botones= []
+let indexAtaqueJugador
+let indexAtaqueEnemigo
 let btnFuego 
 let btnAgua 
 let btnTierra 
@@ -103,23 +108,17 @@ function iniciarJuego(){
         inputCharly=document.getElementById('Charly')
     });
 
-
     //style guarda los estilos 
     //sectionReiniciar.style.display='none'
     //no poner guuion medio a variables
 	botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
-
-    
-
     btnReiniciar.addEventListener('click', reiniciarJuego)
 
 }
 
 function seleccionarMascotaJugador(){
-    
     //style guarda los estilos 
     sectionSeleccionarMascota.style.display='none'
-
     sectionSeleccionarAtaque.style.display='flex'
    
 	if(inputBlacky.checked){
@@ -159,11 +158,6 @@ function mostrarAtaques(ataques){
     btnAgua = document.getElementById('btn-agua')
     btnTierra = document.getElementById('btn-tierra')
     botones = document.querySelectorAll('.BAtaque')
-    /*
-    btnFuego.addEventListener('click', ataqueFuego)
-    btnAgua.addEventListener('click', ataqueAgua)
-    btnTierra.addEventListener('click', ataqueTierra)
-    */
 }
 function secuenciaAtaque(){
     botones.forEach((boton) => {
@@ -178,14 +172,17 @@ function secuenciaAtaque(){
                 case 'FUEGO' :
                     ataqueJugador.push('FUEGO')
                     boton.style.background ='#112f58'
+                    boton.disabled = true
                     break;
                 case 'AGUA' :
                     ataqueJugador.push('AGUA')
                     boton.style.background ='#112f58'
+                    boton.disabled = true
                     break;
                 case 'TIERRA' :
                     ataqueJugador.push('TIERRA')
                     boton.style.background ='#112f58'
+                    boton.disabled = true
                     break;
             }
             ataqueAleatorioEnemigo()
@@ -217,39 +214,56 @@ function ataqueAleatorioEnemigo(){
             break;
     }
     console.log(ataqueEnemigo)
-    combate()
+    iniciarPelea()
+    //combate()
+}
+function iniciarPelea(){
+    if(ataqueJugador.length ===5){
+        combate()
+    }
+}
+function oponentes(jugador, enemigo){
+    indexAtaqueJugador = ataqueJugador[jugador]
+    indexAtaqueEnemigo = ataqueEnemigo[enemigo]
 }
 
 function combate(){
-    console.log(vidasJugador)
-
-    if(ataqueEnemigo==ataqueJugador){
-        crearMensaje("Empate")
-    }else if(ataqueJugador=='FUEGO' && ataqueEnemigo=='TIERRA'){
-        crearMensaje("Ganaste")
-        vidasEnemigo--
-        spanVidasEnemigo.innerHTML = vidasEnemigo
-    }else if(ataqueJugador=='AGUA' && ataqueEnemigo=='FUEGO'){
-        crearMensaje("Ganaste")
-        vidasEnemigo--
-        spanVidasEnemigo.innerHTML = vidasEnemigo
-    }else if(ataqueJugador == 'TIERRA' && ataqueEnemigo == 'AGUA'){
-        crearMensaje("Ganaste") 
-        vidasEnemigo--
-        spanVidasEnemigo.innerHTML = vidasEnemigo
-    }else{
-        crearMensaje("Perdiste")
-        vidasJugador --
-        spanVidasJugador.innerHTML = vidasJugador
+    for (let index = 0; index < ataqueJugador.length; index++) {
+        if(ataqueJugador[index]===ataqueEnemigo[index]){
+            oponentes(index, index)
+            crearMensaje("EMPATE")
+        }else if(ataqueJugador[index]==='FUEGO' &&ataqueEnemigo[index]==='TIERRA'){
+            oponentes(index, index)
+            crearMensaje('GANASTE')
+            victoriaJugador++
+            spanVidasJugador.innerHTML=victoriaJugador
+        }else if(ataqueJugador[index]==='AGUA' &&ataqueEnemigo[index]==='FUEGO'){
+            oponentes(index, index)
+            crearMensaje('GANASTE')
+            victoriaJugador++
+            spanVidasJugador.innerHTML=victoriaJugador
+        }else if(ataqueJugador[index]==='TIERRA' &&ataqueEnemigo[index]==='AGUA'){
+            oponentes(index, index)
+            crearMensaje('GANASTE')
+            victoriaJugador++
+            spanVidasJugador.innerHTML=victoriaJugador
+        }else{
+            oponentes(index, index)
+            crearMensaje('PERDISTE')
+            victoriasEnemigo ++
+            spanVidasEnemigo.innerHTML=victoriasEnemigo
+        }
     }
-    //se revia las vidas
     revisarVidas()
 }
+
 function revisarVidas(){
-    if(vidasEnemigo==0){
-        crearMensajeFinal("FELICIDADES, GANASTE :)")
-    }else if(vidasJugador == 0){
-        crearMensajeFinal(" PERDISTE ")
+    if(victoriaJugador===victoriasEnemigo){
+        crearMensajeFinal("ESTO FUE UN GRAN EMPATE :)")
+    }else if(victoriaJugador > victoriasEnemigo){
+        crearMensajeFinal("GANAMOS ")
+    }else{
+        crearMensajeFinal('PERDISTE')
     }
 }
 
@@ -261,8 +275,8 @@ function crearMensaje(resultado){
     let nuevoAtaqueJugador = document.createElement('p')
     let nuevoAtaqueEnemigo = document.createElement('p')
     sectionMensaje.innerHTML=resultado
-    nuevoAtaqueJugador.innerHTML = ataqueJugador
-    nuevoAtaqueEnemigo.innerHTML = ataqueEnemigo
+    nuevoAtaqueJugador.innerHTML = indexAtaqueJugador
+    nuevoAtaqueEnemigo.innerHTML = indexAtaqueEnemigo
     /*let parrafo = document.createElement('p')
     parrafo.innerHTML = "Tu mascota ataco con "+ataqueJugador+" la mascota del enemigo ataco con "+ataqueEnemigo+" "+resultado
     sectionMensaje.appendChild(parrafo)*/
@@ -271,25 +285,12 @@ function crearMensaje(resultado){
 }
 function crearMensajeFinal(resultadoFinal){
     sectionMensaje.innerHTML=resultadoFinal
-    /*
-    let parrafo = document.createElement('p')
-    parrafo.innerHTML = resultadoFinal
-    sectionMensajes.appendChild(parrafo)
-    */
-    btnFuego.disabled = true
-    btnAgua.disabled = true
-    btnTierra.disabled = true
-
-    //style guarda los estilos 
     sectionReiniciar.style.display='block'
-
 }
-
 
 function reiniciarJuego(){
     location.reload();
 }
-
 
 function aleatorio(min, max){
     return Math.floor(Math.random()*(max-min+1)+min)
