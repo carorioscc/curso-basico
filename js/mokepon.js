@@ -20,8 +20,10 @@ const ataqueDelEnemigo = document.getElementById("ataque-enemigo")
 const contenedorTarjetas = document.getElementById("contenedorTarjetas")
 const contenedorAtaques = document.getElementById("contenedorAtaques")
 
-let mokepones = []
+const sectionVerMapa=document.getElementById("ver-mapa")
+const mapa=document.getElementById("mapa")
 
+let mokepones = []
 let ataqueJugador =[]
 let ataqueEnemigo = []
 
@@ -43,6 +45,7 @@ let indexAtaqueEnemigo
 let btnFuego 
 let btnAgua 
 let btnTierra 
+let lienzo=mapa.getContext("2d")
 
 class Mokepon{
     //constructo
@@ -52,6 +55,12 @@ class Mokepon{
         this.foto=foto
         this.vida=vida
         this.ataques=[]
+        this.x= 20
+        this.y=30
+        this.ancho=80
+        this.alto=80
+        this.mapaFoto=new Image()
+        this.mapaFoto.src =foto
     }
 }
 //ejemplo de ob jetos instancia
@@ -87,10 +96,10 @@ mokepones.push(blacky, coco, charly)
 
 
 function iniciarJuego(){
-
     //style guarda los estilos 
     //sectionSeleccionarMascota.style.display='none'
     sectionSeleccionarAtaque.style.display='none'
+    sectionVerMapa.style.display="none"
 /**por cada elemento de :foreach */
     mokepones.forEach((mokepon)=>{
         console.log(mokepon.nombre)
@@ -119,7 +128,14 @@ function iniciarJuego(){
 function seleccionarMascotaJugador(){
     //style guarda los estilos 
     sectionSeleccionarMascota.style.display='none'
-    sectionSeleccionarAtaque.style.display='flex'
+    //sectionSeleccionarAtaque.style.display='flex'
+    sectionVerMapa.style.display="flex"
+    
+    /*
+    let imageDeCoco= new Image ()
+    imageDeCoco.src=coco  
+    lienzo.fillRect(5,15, 20, 40)
+    */
    
 	if(inputBlacky.checked){
         spanMascotaJugador.innerHTML=inputBlacky.id
@@ -294,6 +310,20 @@ function reiniciarJuego(){
 
 function aleatorio(min, max){
     return Math.floor(Math.random()*(max-min+1)+min)
+}
+function pintarPersonaje(){
+    lienzo.clearRect(0,0,mapa.width, mapa.height)
+    lienzo.drawImage(
+        coco.mapaFoto,
+        coco.x,
+        coco.y,
+        coco.ancho,
+        coco.alto
+    )
+}
+function moverCoco(){
+    coco.x=coco.x+5
+    pintarPersonaje()
 }
 //cuando carga todo el html
 window.addEventListener('load', iniciarJuego)

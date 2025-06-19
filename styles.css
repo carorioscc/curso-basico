@@ -143,6 +143,15 @@ input:checked + label{
     align-items: center;
 }
 
+#ver-mapa {
+    flex-direction: column;
+    align-items: center;
+    justify-content: cent;
+}
+#mapa {
+    border: 2px solid white;
+}
+
 /*hasta ese tamaño de pantalla va a suceder esto ejemplo desde 0 px hasta 360 px*/
 @media (max-width:360px){
     .tarjetas, .tarjetas-ataque{
@@ -150,6 +159,7 @@ input:checked + label{
     }
     
 }
+
 
 /*pseudoclases : acciones de usuario
 :hover pasar mouse
