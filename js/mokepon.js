@@ -33,6 +33,7 @@ let vidasJugador=3
 let vidasEnemigo=3
 let opcionDeMokepon
 let mascotaJugador
+let mascotaJugadorObjeto
 let ataquesMascota
 let ataquesMascotaEnemigo
 let inputBlacky
@@ -46,7 +47,9 @@ let btnFuego
 let btnAgua 
 let btnTierra 
 let lienzo=mapa.getContext("2d")
-
+let intervalo
+let mapaBackground = new Image()
+mapaBackground.src = './assets/mokemap.png'
 class Mokepon{
     //constructo
     constructor(nombre, foto, vida){
@@ -59,8 +62,10 @@ class Mokepon{
         this.y=30
         this.ancho=80
         this.alto=80
-        this.mapaFoto=new Image()
-        this.mapaFoto.src =foto
+        this.mapaFoto= new Image()
+        this.mapaFoto.src = foto
+        this.velocidadX = 0
+        this.velocidadY = 0
     }
 }
 //ejemplo de ob jetos instancia
@@ -130,7 +135,9 @@ function seleccionarMascotaJugador(){
     sectionSeleccionarMascota.style.display='none'
     //sectionSeleccionarAtaque.style.display='flex'
     sectionVerMapa.style.display="flex"
+    //cada 50 milisegundo va a ejecutar esa funcion
     
+    iniciarMapa()
     /*
     let imageDeCoco= new Image ()
     imageDeCoco.src=coco  
@@ -149,7 +156,10 @@ function seleccionarMascotaJugador(){
     }else{
         alert("Selecciona una mascota")
     }
+    
     extraerAtaques(mascotaJugador)
+    sectionVerMapa.style.display = 'flex'
+    iniciarMapa()
     seleccionarMascotaEnemigo()
 }
 function extraerAtaques(mascotaJugador){
@@ -311,20 +321,99 @@ function reiniciarJuego(){
 function aleatorio(min, max){
     return Math.floor(Math.random()*(max-min+1)+min)
 }
-function pintarPersonaje(){
+function pintarCanvas(){
+
+    mascotaJugadorObjeto.x=mascotaJugadorObjeto.x+mascotaJugadorObjeto.velocidadX
+    mascotaJugadorObjeto.y=mascotaJugadorObjeto.y+mascotaJugadorObjeto.velocidadY
     lienzo.clearRect(0,0,mapa.width, mapa.height)
     lienzo.drawImage(
-        coco.mapaFoto,
-        coco.x,
-        coco.y,
-        coco.ancho,
-        coco.alto
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
+    )
+    lienzo.drawImage(
+        mascotaJugadorObjeto.mapaFoto,
+        mascotaJugadorObjeto.x,
+        mascotaJugadorObjeto.y,
+        mascotaJugadorObjeto.ancho,
+        mascotaJugadorObjeto.alto
     )
 }
-function moverCoco(){
-    coco.x=coco.x+5
-    pintarPersonaje()
+function moverDerecha(){
+    /*coco.x=coco.x+5
+    pintarPersonaje()*/
+    mascotaJugadorObjeto.velocidadX = 5
 }
+function moverIzquierda(){
+    /*
+    coco.x=coco.x-5
+    pintarPersonaje()
+    */
+    mascotaJugadorObjeto.velocidadX = -5
+}
+function moverAbajo(){
+    /*
+    coco.y=coco.y+5
+    pintarPersonaje()
+    */
+    mascotaJugadorObjeto.velocidadY = 5
+}
+function moverArriba(){
+    /*
+    coco.y=coco.y-5
+    pintarPersonaje()
+    */
+    mascotaJugadorObjeto.velocidadY = -5
+}
+function detenerMovimiento (){
+    
+    mascotaJugadorObjeto.velocidadX = 0
+    mascotaJugadorObjeto.velocidadY=0
+}
+//el  eventlistener proporcipon UN EVENTO, o un VALOR
+function sePresionoUnaTecla(event){
+    //proporciona que tecla presiono
+    console.log(event.key)
+    switch(key){
+        case 'ArrowUp':
+            moverArriba()
+            break
+        case 'ArrowDown':
+            moverAbajo()
+            break;
+        case 'ArrowLeft':
+            moverIzquierda()
+            break
+        case 'ArrowRight':
+            moverDerecha()
+            break
+        default:
+            break
+    }
+}
+function iniciarMapa(){
+    mapa.width=320
+    mapa.height=240
+    mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
+    intervalo = setInterval(pintarCanvas, 50)
+    //este evento se ejecuta cuando se presiona una tecla
+    window.addEventListener("keydown", sePresionoUnaTecla)
+    //este evento se ejecura cuando se deje de presionar las teclas
+    window.addEventListener("keyup", detenerMovimiento)
+
+}
+function obtenerObjetoMascota(){
+    let ataques 
+    for (let i = 0; i < mokepones.length; i++) {
+        if(mascotaJugador === mokepones[i].nombre){
+            return mokepones[i]
+
+        }
+    }
+}
+
 //cuando carga todo el html
 window.addEventListener('load', iniciarJuego)
 
