@@ -52,7 +52,7 @@ let mapaBackground = new Image()
 mapaBackground.src = './assets/mokemap.png'
 class Mokepon{
     //constructo
-    constructor(nombre, foto, vida){
+    constructor(nombre, foto, vida,fotoMapa, x=10, y=10){
         //a esto mismo
         this.nombre=nombre
         this.foto=foto
@@ -63,15 +63,15 @@ class Mokepon{
         this.ancho=80
         this.alto=80
         this.mapaFoto= new Image()
-        this.mapaFoto.src = foto
+        this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
         this.velocidadY = 0
     }
 }
 //ejemplo de ob jetos instancia
-let blacky = new Mokepon('Blacky', './assets/mokepons_mokepon_hipodoge_attack.png', 5)
-let coco = new Mokepon('Coco', './assets/mokepons_mokepon_capipepo_attack.png', 2)
-let charly = new Mokepon('Charly', './assets/mokepons_mokepon_ratigueya_attack.png', 7)
+let blacky = new Mokepon('Blacky', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodoge.png')
+let coco = new Mokepon('Coco', './assets/mokepons_mokepon_capipepo_attack.png', 2, './assets/capipepo.png')
+let charly = new Mokepon('Charly', './assets/mokepons_mokepon_ratigueya_attack.png', 7, './assets/ratigueya.png')
 //ejemplo de objetos iterables.
 blacky.ataques.push(
     {nombre:'AGUA', id: 'btn-agua'},
@@ -333,6 +333,7 @@ function pintarCanvas(){
         mapa.width,
         mapa.height
     )
+
     lienzo.drawImage(
         mascotaJugadorObjeto.mapaFoto,
         mascotaJugadorObjeto.x,
@@ -340,6 +341,7 @@ function pintarCanvas(){
         mascotaJugadorObjeto.ancho,
         mascotaJugadorObjeto.alto
     )
+
 }
 function moverDerecha(){
     /*coco.x=coco.x+5
