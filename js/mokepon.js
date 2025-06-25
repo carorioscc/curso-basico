@@ -58,20 +58,35 @@ class Mokepon{
         this.foto=foto
         this.vida=vida
         this.ataques=[]
-        this.x= 20
-        this.y=30
-        this.ancho=80
-        this.alto=80
+        this.x= x
+        this.y= y
+        this.ancho=40
+        this.alto=40
         this.mapaFoto= new Image()
         this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
         this.velocidadY = 0
+    }
+    pintarMascota() {
+        lienzo.drawImage(
+            this.mapaFoto,
+            this.x,
+            this.y,
+            this.ancho,
+            this.alto
+        )
     }
 }
 //ejemplo de ob jetos instancia
 let blacky = new Mokepon('Blacky', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodoge.png')
 let coco = new Mokepon('Coco', './assets/mokepons_mokepon_capipepo_attack.png', 2, './assets/capipepo.png')
 let charly = new Mokepon('Charly', './assets/mokepons_mokepon_ratigueya_attack.png', 7, './assets/ratigueya.png')
+
+//enemigos
+let blackyEnemigo = new Mokepon('Blacky', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodoge.png',80, 120)
+let cocoEnemigo = new Mokepon('Coco', './assets/mokepons_mokepon_capipepo_attack.png', 2, './assets/capipepo.png', 50, 195)
+let charlyEnemigo = new Mokepon('Charly', './assets/mokepons_mokepon_ratigueya_attack.png', 7, './assets/ratigueya.png', 200, 190)
+//ejemplo de objetos iterables.
 //ejemplo de objetos iterables.
 blacky.ataques.push(
     {nombre:'AGUA', id: 'btn-agua'},
@@ -334,13 +349,15 @@ function pintarCanvas(){
         mapa.height
     )
 
-    lienzo.drawImage(
-        mascotaJugadorObjeto.mapaFoto,
-        mascotaJugadorObjeto.x,
-        mascotaJugadorObjeto.y,
-        mascotaJugadorObjeto.ancho,
-        mascotaJugadorObjeto.alto
-    )
+    mascotaJugadorObjeto.pintarMascota()
+    blackyEnemigo.pintarMascota()
+    cocoEnemigo.pintarMascota()
+    charlyEnemigo.pintarMascota()
+    if(mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0){
+        revisarColision(blackyEnemigo)
+        revisarColision(cocoEnemigo)
+        revisarColision(charlyEnemigo)
+    }
 
 }
 function moverDerecha(){
@@ -414,6 +431,29 @@ function obtenerObjetoMascota(){
 
         }
     }
+}
+
+function revisarColision (enemigo){
+    const arribaEnemigo = enemigo.y
+    const abajoEnemigo= enemigo.y + enemigo.alto
+    const derechaEnemigo = enemigo.x + enemigo.ancho
+    const izquierdaEnemigo = enemigo.x
+
+    const arribaMascota = mascotaJugadorObjeto.y
+    const abajoMascota = mascotaJugadorObjeto.y + mascotaJugadorObjeto.alto
+    const derechaMascota = mascotaJugadorObjeto.x + mascotaJugadorObjeto.ancho
+    const izquierdaMascota = mascotaJugadorObjeto.x
+    
+    if(
+        abajoMascota < arribaEnemigo || 
+        arribaMascota > abajoEnemigo|| 
+        derechaMascota < izquierdaEnemigo|| 
+        izquierdaMascota > derechaEnemigo
+    ){
+        return 
+    }
+    detenerMovimiento()
+    alert("Hay Colision" + enemigo.nombre)
 }
 
 //cuando carga todo el html
