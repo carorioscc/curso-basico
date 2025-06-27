@@ -148,15 +148,33 @@ input:checked + label{
     align-items: center;
     justify-content: cent;
 }
+#ver-mapa button {
+        width: 80px;
+        height: 40px;
+        border-radius: 20px;
+        background: transparent;
+        border: 2px solid white;
+        color: white;
+        margin: 10px 0;
+}
 #mapa {
-    border: 2px solid white;
+    border: 2px solid;
 }
 
 /*hasta ese tamaño de pantalla va a suceder esto ejemplo desde 0 px hasta 360 px*/
-@media (max-width:360px){
+@media (max-width:560px){
     .tarjetas, .tarjetas-ataque{
         flex-direction: column;
     }
+    
+}
+
+@media (max-width:360px){
+#ver-mapa{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
     
 }
 

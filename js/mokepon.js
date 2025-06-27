@@ -50,18 +50,29 @@ let lienzo=mapa.getContext("2d")
 let intervalo
 let mapaBackground = new Image()
 mapaBackground.src = './assets/mokemap.png'
+
+let alturaQueBuscamos
+let anchoDelMapa = window.innerWidth - 20
+
+alturaQueBuscamos = anchoDelMapa * 600 / 800
+mapa.width = anchoDelMapa
+mapa.height = alturaQueBuscamos
+const anchoMaximoMapa = 350
+
+if(anchoDelMapa >anchoMaximoMapa ){ anchoDelMapa=anchoMaximoMapa - 20 }
 class Mokepon{
     //constructo
-    constructor(nombre, foto, vida,fotoMapa, x=10, y=10){
+    constructor(nombre, foto, vida,fotoMapa){
         //a esto mismo
         this.nombre=nombre
         this.foto=foto
         this.vida=vida
         this.ataques=[]
-        this.x= x
-        this.y= y
         this.ancho=40
         this.alto=40
+        this.x= aleatorio(0,mapa.width - this.ancho)
+        this.y= aleatorio(0, mapa.height - this.alto)
+
         this.mapaFoto= new Image()
         this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
@@ -83,12 +94,21 @@ let coco = new Mokepon('Coco', './assets/mokepons_mokepon_capipepo_attack.png', 
 let charly = new Mokepon('Charly', './assets/mokepons_mokepon_ratigueya_attack.png', 7, './assets/ratigueya.png')
 
 //enemigos
-let blackyEnemigo = new Mokepon('Blacky', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodoge.png',80, 120)
-let cocoEnemigo = new Mokepon('Coco', './assets/mokepons_mokepon_capipepo_attack.png', 2, './assets/capipepo.png', 50, 195)
-let charlyEnemigo = new Mokepon('Charly', './assets/mokepons_mokepon_ratigueya_attack.png', 7, './assets/ratigueya.png', 200, 190)
+let blackyEnemigo = new Mokepon('Blacky', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodoge.png')
+let cocoEnemigo = new Mokepon('Coco', './assets/mokepons_mokepon_capipepo_attack.png', 2, './assets/capipepo.png')
+let charlyEnemigo = new Mokepon('Charly', './assets/mokepons_mokepon_ratigueya_attack.png', 7, './assets/ratigueya.png')
 //ejemplo de objetos iterables.
 //ejemplo de objetos iterables.
 blacky.ataques.push(
+    {nombre:'AGUA', id: 'btn-agua'},
+    {nombre: 'AGUA', id: 'btn-agua'},
+    {nombre: 'FUEGO', id: 'btn-fuego'},
+    {nombre: 'FUEGO', id: 'btn-fuego'},
+    {nombre: 'TIERRA', id: 'btn-tierra'},
+
+)
+
+blackyEnemigo.ataques.push(
     {nombre:'AGUA', id: 'btn-agua'},
     {nombre: 'AGUA', id: 'btn-agua'},
     {nombre: 'FUEGO', id: 'btn-fuego'},
@@ -104,7 +124,23 @@ coco.ataques.push(
     {nombre: 'TIERRA', id: 'btn-tierra'},
 
 )
+cocoEnemigo.ataques.push(
+    {nombre:'AGUA', id: 'btn-agua'},
+    {nombre: 'AGUA', id: 'btn-agua'},
+    {nombre: 'FUEGO', id: 'btn-fuego'},
+    {nombre: 'FUEGO', id: 'btn-fuego'},
+    {nombre: 'TIERRA', id: 'btn-tierra'},
+
+)
 charly.ataques.push(
+    {nombre:'AGUA', id: 'btn-agua'},
+    {nombre: 'AGUA', id: 'btn-agua'},
+    {nombre: 'FUEGO', id: 'btn-fuego'},
+    {nombre: 'TIERRA', id: 'btn-tierra'},
+    {nombre: 'TIERRA', id: 'btn-tierra'},
+
+)
+charlyEnemigo.ataques.push(
     {nombre:'AGUA', id: 'btn-agua'},
     {nombre: 'AGUA', id: 'btn-agua'},
     {nombre: 'FUEGO', id: 'btn-fuego'},
@@ -148,7 +184,7 @@ function iniciarJuego(){
 function seleccionarMascotaJugador(){
     //style guarda los estilos 
     sectionSeleccionarMascota.style.display='none'
-    //sectionSeleccionarAtaque.style.display='flex'
+    
     sectionVerMapa.style.display="flex"
     //cada 50 milisegundo va a ejecutar esa funcion
     
@@ -232,7 +268,7 @@ function secuenciaAtaque(){
     })
     
 }
-function seleccionarMascotaEnemigo(){
+function seleccionarMascotaEnemigo(enemigo){
     let ataqueAleatorio = aleatorio(0 ,mokepones.length-1)
     spanMacotaEnemigo.innerHTML=mokepones[ataqueAleatorio].nombre
     ataquesMascotaEnemigo = mokepones[ataqueAleatorio].ataques
@@ -413,8 +449,7 @@ function sePresionoUnaTecla(event){
     }
 }
 function iniciarMapa(){
-    mapa.width=320
-    mapa.height=240
+
     mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
     intervalo = setInterval(pintarCanvas, 50)
     //este evento se ejecuta cuando se presiona una tecla
@@ -453,7 +488,11 @@ function revisarColision (enemigo){
         return 
     }
     detenerMovimiento()
-    alert("Hay Colision" + enemigo.nombre)
+    clearInterval(intervalo)
+    sectionSeleccionarAtaque.style.display='flex'
+    sectionVerMapa.style.display = 'none'
+    seleccionarMascotaEnemigo(enemigo)
+    //alert("Hay Colision" + enemigo.nombre)
 }
 
 //cuando carga todo el html
