@@ -22,7 +22,7 @@ const contenedorAtaques = document.getElementById("contenedorAtaques")
 
 const sectionVerMapa=document.getElementById("ver-mapa")
 const mapa=document.getElementById("mapa")
-
+let jugadorId = null
 let mokepones = []
 let ataqueJugador =[]
 let ataqueEnemigo = []
@@ -179,7 +179,24 @@ function iniciarJuego(){
 	botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
     btnReiniciar.addEventListener('click', reiniciarJuego)
 
+    unirseAlJuego()
+
 }
+function unirseAlJuego() {
+    //fetch nos permite hacer llamadas hacia otros servicios http , post se puede mandar datos, get obtener respuesta
+    fetch("http://localhost:8080/unirse")
+        .then(function (res) {
+            console.log(res)
+            if (res.ok) {
+                res.text()
+                    .then(function (respuesta) {
+                        console.log(respuesta)
+                        jugadorId = respuesta
+                    })
+            }
+        })
+}
+
 
 function seleccionarMascotaJugador(){
     //style guarda los estilos 
@@ -207,11 +224,23 @@ function seleccionarMascotaJugador(){
     }else{
         alert("Selecciona una mascota")
     }
+
+    seleccionarMascota(mascotaJugador)
     
     extraerAtaques(mascotaJugador)
     sectionVerMapa.style.display = 'flex'
     iniciarMapa()
-    seleccionarMascotaEnemigo()
+    //seleccionarMascotaEnemigo(mascotaJugador)
+}
+//funcion post
+function seleccionarMascota(mascotaJugador){
+    fetch(`http://localhost:8080/mascota/${jugadorId}`,{
+        method: "post",
+        headers : {
+            "Content-Type":"application/json"
+        },
+        body : JSON.stringify({mascota:mascotaJugador})
+    })    
 }
 function extraerAtaques(mascotaJugador){
     let ataques 
