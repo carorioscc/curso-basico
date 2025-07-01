@@ -415,6 +415,9 @@ function pintarCanvas(){
     )
 
     mascotaJugadorObjeto.pintarMascota()
+    
+    enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
+
     blackyEnemigo.pintarMascota()
     cocoEnemigo.pintarMascota()
     charlyEnemigo.pintarMascota()
@@ -423,8 +426,18 @@ function pintarCanvas(){
         revisarColision(cocoEnemigo)
         revisarColision(charlyEnemigo)
     }
-
 }
+function enviarPosicion(x,y){
+    fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion/`,{
+        method : "post",
+        headers : {"Content-Type" : "application/json"},
+        body : JSON.stringify({
+            x,y
+        })
+    })
+}
+
+
 function moverDerecha(){
     /*coco.x=coco.x+5
     pintarPersonaje()*/
