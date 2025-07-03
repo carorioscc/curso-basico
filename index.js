@@ -57,7 +57,7 @@ app.post("/mokepon/:jugadorId", (req, res) => {
     res.end()
 })
 
-app.post(`/mokepon/:jugadorId/posicion`,(req, res)=>{
+app.post("/mokepon/:jugadorId/posicion",(req, res)=>{
     const jugadorId = req.params.jugadorId || ""
     const x= req.body.x || 0
     const y = req.body.y || 0
@@ -86,7 +86,7 @@ app.post("/mokepon/:jugadorId/ataques", (req, res) => {
 
 app.get("/mokepon/:jugadorId/ataques", (req, res)=>{
     const jugadorId = req.params.jugadorId || ""
-    const jugador= jugadores.find((jugador)=> jugadorId ===jugadorId)
+    const jugador = jugadores.find((jugador)=> jugadorId ===jugadorId)
     res.send({
         ataques:jugador.ataques || []
     })
