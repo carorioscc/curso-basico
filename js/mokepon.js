@@ -1,5 +1,4 @@
-const { json } = require("express")
-
+//const { json } = require("express")
 //variable let-puede variar, const ya no cambia ya que se cra el valor que tiene no cambia
 const sectionSeleccionarAtaque = document.getElementById('seleccion-ataque')
 const sectionReiniciar= document.getElementById('reiniciar')
@@ -171,17 +170,15 @@ function iniciarJuego(){
 }
 function unirseAlJuego() {
     //fetch nos permite hacer llamadas hacia otros servicios http , post se puede mandar datos, get obtener respuesta
-    fetch("http://localhost:8080/unirse")
-        .then(function (res) {
-            console.log(res)
-            if (res.ok) {
-                res.text()
-                    .then(function (respuesta) {
-                        console.log(respuesta)
-                        jugadorId = respuesta
-                    })
-            }
-        })
+    fetch("http://localhost:8080/unirse").then(function (res) {
+        console.log(res)
+        if (res.ok) {
+            res.text().then(function (respuesta) {
+                console.log(respuesta)
+                jugadorId = respuesta
+            })
+        }
+    })
 }
 
 
@@ -226,7 +223,9 @@ function seleccionarMascota(mascotaJugador){
         headers : {
             "Content-Type":"application/json"
         },
-        body : JSON.stringify({mascota:mascotaJugador})
+        body : JSON.stringify({
+            mascota:mascotaJugador
+        })
     })    
 }
 function extraerAtaques(mascotaJugador){
@@ -234,7 +233,6 @@ function extraerAtaques(mascotaJugador){
     for (let i = 0; i < mokepones.length; i++) {
         if(mascotaJugador === mokepones[i].nombre){
             ataques =mokepones[i].ataques
-
         }
     }
     mostrarAtaques(ataques)
@@ -291,10 +289,10 @@ function enviarAtaques(){
     fetch(`http://localhost:8080/mokepon/${jugadorId}/ataques`,{
         method : 'post',
         headers : {
-            "Content-type": "application/json"
+            "Content-Type": "application/json"
         },
         body : JSON.stringify({
-            atques: ataqueJugador
+            ataques: ataqueJugador
         })
     })
     intervalo = setInterval(obtenerAtaques, 50)
@@ -315,9 +313,12 @@ function obtenerAtaques(){
     })
 }
 function seleccionarMascotaEnemigo(enemigo){
-    let ataqueAleatorio = aleatorio(0 ,mokepones.length-1)
-    spanMacotaEnemigo.innerHTML=mokepones[ataqueAleatorio].nombre
-    ataquesMascotaEnemigo = mokepones[ataqueAleatorio].ataques
+    // let ataqueAleatorio = aleatorio(0 ,mokepones.length-1)
+    // spanMacotaEnemigo.innerHTML=mokepones[ataqueAleatorio].nombre
+    // ataquesMascotaEnemigo = mokepones[ataqueAleatorio].ataques
+    // secuenciaAtaque()
+    spanMascotaEnemigo.innerHTML = enemigo.nombre
+    ataquesMokeponEnemigo = enemigo.ataques
     secuenciaAtaque()
 }
 
@@ -340,6 +341,8 @@ function ataqueAleatorioEnemigo(){
     iniciarPelea()
     //combate()
 }
+
+
 function iniciarPelea(){
     if(ataqueJugador.length ===5){
         combate()
@@ -457,15 +460,15 @@ function enviarPosicion(x,y){
                 .then(function({enemigos}){
                     console.log(enemigos)
                     
-                    mokeponesEnemigosenemigos.map(function (enemigo){
+                    mokeponesEnemigos.map(function (enemigo){
                         let mokeponEnemigo = null
                         const mokeponNombre =enemigo.mokepon.nombre || ''
                         if(mokeponNombre === 'Blacky'){
-                            let mokeponEnemigo = new Mokepon('Blacky', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodoge.png', enemigoId)
+                            let mokeponEnemigo = new Mokepon('Blacky', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodoge.png', enemigo.id)
                         }else if (mokeponNombre === 'Coco'){
-                            let mokeponEnemigo = new Mokepon('Coco', './assets/mokepons_mokepon_capipepo_attack.png', 2, './assets/capipepo.png', enemigoId)
+                            let mokeponEnemigo = new Mokepon('Coco', './assets/mokepons_mokepon_capipepo_attack.png', 2, './assets/capipepo.png', enemigo.id)
                         }else if(mokeponNombre === 'Charly'){
-                            let mokeponEnemigo = new Mokepon('Charly', './assets/mokepons_mokepon_ratigueya_attack.png', 7, './assets/ratigueya.png', enemigoId)
+                            let mokeponEnemigo = new Mokepon('Charly', './assets/mokepons_mokepon_ratigueya_attack.png', 7, './assets/ratigueya.png', enemigo.id)
                         }
                         
                         mokeponEnemigo.x = enemigo.x
@@ -515,7 +518,7 @@ function detenerMovimiento (){
 function sePresionoUnaTecla(event){
     //proporciona que tecla presiono
     console.log(event.key)
-    switch(key){
+    switch(event.key){
         case 'ArrowUp':
             moverArriba()
             break
@@ -543,7 +546,6 @@ function iniciarMapa(){
 
 }
 function obtenerObjetoMascota(){
-    let ataques 
     for (let i = 0; i < mokepones.length; i++) {
         if(mascotaJugador === mokepones[i].nombre){
             return mokepones[i]
@@ -574,7 +576,7 @@ function revisarColision (enemigo){
     detenerMovimiento()
     clearInterval(intervalo)
     console.log(`Se detecto una colision`)
-    enemigoId = enemigoId
+    enemigoId = enemigo.id
     sectionSeleccionarAtaque.style.display='flex'
     sectionVerMapa.style.display = 'none'
     seleccionarMascotaEnemigo(enemigo)
